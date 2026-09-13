@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 
-const TaskList = ({ tasks, onToggle, onEdit, onDelete }) => {
+const TaskList = ({ tasks, onToggle, onEdit, onDelete, onStartWork, activeTaskId }) => {
   if (tasks.length === 0) {
     return (
       <div className="card" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
@@ -19,6 +19,8 @@ const TaskList = ({ tasks, onToggle, onEdit, onDelete }) => {
           onToggle={onToggle} 
           onEdit={onEdit} 
           onDelete={onDelete} 
+          onStartWork={onStartWork}
+          isActive={task.id === activeTaskId}
         />
       ))}
     </div>

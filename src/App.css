@@ -141,8 +141,62 @@ button {
 .priority-medium { background: #fef3c7; color: #92400e; }
 .priority-high { background: #fee2e2; color: #991b1b; }
 
-@media (max-width: 640px) {
-  .app-container {
-    padding: 1rem 0.5rem;
-  }
+/* Active Session Bar */
+.active-session-bar {
+  background: var(--text-main);
+  color: white;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.timer-display {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.btn-timer {
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+}
+
+.btn-timer:hover {
+  background: #475569;
+}
+
+.btn-finish {
+  background: var(--success-color);
+  color: white;
+}
+
+.time-comparison {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.time-box {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background: #f1f5f9;
+}
+
+.task-item.active {
+  border-left: 4px solid var(--primary-color);
+  background: #f0f7ff;
 }

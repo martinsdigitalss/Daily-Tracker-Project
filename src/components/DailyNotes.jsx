@@ -27,6 +27,10 @@ const DailyNotes = ({ notes, onSave, stats }) => {
           <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Est. Work Time</p>
           <p style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{stats.totalEstimatedMinutes} mins</p>
         </div>
+        <div>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Actual Work Time</p>
+          <p style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{stats.totalActualMinutes} mins</p>
+        </div>
       </div>
 
       <h3 style={{ fontSize: '1rem', marginBottom: '1rem' }}>End-of-day notes</h3>

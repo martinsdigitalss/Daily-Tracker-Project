@@ -1,12 +1,17 @@
 import React from 'react';
 
-const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
+const TaskItem = ({ task, onToggle, onEdit, onDelete, onStartWork, isActive }) => {
   const formatTime = (isoString) => {
     return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  const formatElapsed = (totalSeconds) => {
+    const m = Math.floor(totalSeconds / 60);
+    return `${m} min`;
+  };
+
   return (
-    <div className={`task-item ${task.completed ? 'completed' : ''}`}>
+    <div className={`task-item ${task.completed ? 'completed' : ''} ${isActive ? 'active' : ''}`}>
       <input 
         type="checkbox" 
         checked={task.completed} 
@@ -20,6 +25,9 @@ const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
           <span className={`priority-badge priority-${task.priority}`}>
             {task.priority}
           </span>
+          {isActive && (
+            <span style={{ fontSize: '0.75rem', color: 'var(--primary-color)', fontWeight: 'bold' }}>• ACTIVE</span>
+          )}
         </div>
         
         {task.description && (
@@ -28,15 +36,33 @@ const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
           </p>
         )}
         
-        <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
           <span>Created: {formatTime(task.createdAt)}</span>
-          {task.estimatedMinutes && (
-            <span>Est: {task.estimatedMinutes}m</span>
-          )}
+          
+          <div className="time-comparison">
+            {task.estimatedMinutes && (
+              <span className="time-box">Est: {task.estimatedMinutes}m</span>
+            )}
+            {(task.elapsedSeconds > 0 || task.completed) && (
+              <span className="time-box" style={{ background: '#e0f2fe', color: '#0369a1' }}>
+                Actual: {formatElapsed(task.elapsedSeconds || 0)}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        {!task.completed && !isActive && (
+          <button 
+            className="btn-primary" 
+            style={{ padding: '0.25rem 0.75rem', fontSize: '0.75rem' }}
+            onClick={() => onStartWork(task.id)}
+          >
+            Start Work
+          </button>
+        )}
+        
         <button 
           className="btn-outline" 
           style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }}
